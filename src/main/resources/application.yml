@@ -1,0 +1,28 @@
+spring:
+  # Cloud Stream
+  cloud:
+    stream:
+      rabbit.bindings:
+        ipnMessageSupplier-out-0:
+          producer:
+            bindingRoutingKey: demo
+            routingKeyExpression: '''demo'''
+      bindings:
+        ipnMessageSupplier-out-0:
+          destination: demo
+          content-type: application/json
+          producer.requiredGroups: demo
+    function:
+      definition: ipnMessageSupplier
+
+  # RabbitMQ
+  rabbitmq:
+    host: 192.168.100.131
+    port: 5672
+    username: financial
+    password: financial
+
+# Logging properties
+logging:
+  level:
+    org.springframework.cloud.function.context.catalog.BeanFactoryAwareFunctionRegistry: warn
