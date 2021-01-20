@@ -3,17 +3,25 @@ spring:
   cloud:
     stream:
       rabbit.bindings:
-        ipnMessageSupplier-out-0:
+        asyncSupplier-out-0:
           producer:
-            bindingRoutingKey: demo
-            routingKeyExpression: '''demo'''
+            bindingRoutingKey: demo.async
+            routingKeyExpression: '''demo.async'''
+        syncSupplier-out-0:
+          producer:
+            bindingRoutingKey: demo.sync
+            routingKeyExpression: '''demo.sync'''
       bindings:
-        ipnMessageSupplier-out-0:
+        asyncSupplier-out-0:
           destination: demo
           content-type: application/json
-          producer.requiredGroups: demo
+          producer.requiredGroups: demo.async
+        syncSupplier:
+          destination: demo
+          content-type: application/json
+          producer.requiredGroups: demo.sync
     function:
-      definition: ipnMessageSupplier
+      definition: asyncSupplier
 
   # RabbitMQ
   rabbitmq:
